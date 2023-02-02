@@ -58,6 +58,12 @@ class VehicleFragment : Fragment() {
         mainActivity.progressBarHide()
     }
 
+    override fun onResume() {
+        super.onResume()
+        val mainActivity = activity as MainActivity
+        mainActivity.checkStateButtons()
+    }
+
     fun generateQrCode() {
         val bundle = Bundle()
         bundle.putSerializable("vehicle", vehicle)

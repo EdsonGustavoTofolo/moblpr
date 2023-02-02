@@ -54,6 +54,12 @@ class SecondFragment : Fragment() {
         mainActivity.progressBarHide()
     }
 
+    override fun onResume() {
+        super.onResume()
+        val mainActivity = activity as MainActivity
+        mainActivity.checkStateButtons()
+    }
+
     private fun generateQrCode(data: String): Bitmap {
         val mainActivity = activity as MainActivity
 

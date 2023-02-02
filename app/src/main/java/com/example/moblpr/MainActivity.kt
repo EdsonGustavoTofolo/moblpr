@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.net.sip.SipErrorCode
 import android.os.Bundle
 import android.provider.MediaStore
 import com.google.android.material.snackbar.Snackbar
@@ -17,6 +18,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.moblpr.databinding.ActivityMainBinding
 import java.io.ByteArrayOutputStream
@@ -80,33 +82,59 @@ class MainActivity : AppCompatActivity() {
             generateQrCode()
         }
 
+        initStateButtons()
+    }
+
+    private fun initStateButtons() {
+        binding.menuItemCamera.visibility = View.GONE
+        binding.menuItemGallery.visibility = View.GONE
+        binding.menuItemScan.visibility = View.GONE
         binding.menuItemGenerateQrCode.visibility = View.GONE
         binding.menuItemShareQrCode.visibility = View.GONE
-        binding.menuItemScan.visibility = View.GONE
+    }
+
+    fun checkStateButtons() {
+        initStateButtons()
+        getActiveFragment().let { fragment ->
+            if (fragment is FirstFragment) {
+                binding.menuItemCamera.visibility = View.VISIBLE
+                binding.menuItemGallery.visibility = View.VISIBLE
+                if (fragment.alreadyImageSelected()) {
+                    binding.menuItemScan.visibility = View.VISIBLE
+                } else {
+                    binding.menuItemScan.visibility = View.GONE
+                }
+            } else if (fragment is VehicleFragment) {
+                binding.menuItemGenerateQrCode.visibility = View.VISIBLE
+            } else if (fragment is SecondFragment) {
+                binding.menuItemShareQrCode.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun scanImage() {
         progressBarShow()
-
-        val frag = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-
-        val firstFragment = frag.childFragmentManager.fragments[0]
-
-        if (firstFragment is FirstFragment) {
-            firstFragment.scan()
+        getActiveFragment().let {
+                fragment ->
+            if (fragment is FirstFragment) {
+                fragment.scan()
+            }
         }
     }
 
     private fun generateQrCode() {
         progressBarShow()
-
-        val frag = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-
-        val firstFragment = frag.childFragmentManager.fragments[0]
-
-        if (firstFragment is VehicleFragment) {
-            firstFragment.generateQrCode()
+        getActiveFragment().let {
+            fragment ->
+            if (fragment is VehicleFragment) {
+                fragment.generateQrCode()
+            }
         }
+    }
+
+    private fun getActiveFragment(): Fragment? {
+        val frag = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+        return frag.childFragmentManager.fragments[0]
     }
 
     private fun shareQrCodeImage() {
@@ -201,6 +229,10 @@ class MainActivity : AppCompatActivity() {
 
     fun snackBarShow(text: String) {
         Snackbar.make(binding.coordinatorLayout, text, Snackbar.LENGTH_LONG).show()
+    }
+
+    fun snackBar(text: String) : Snackbar {
+        return Snackbar.make(binding.coordinatorLayout, text, Snackbar.LENGTH_LONG)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

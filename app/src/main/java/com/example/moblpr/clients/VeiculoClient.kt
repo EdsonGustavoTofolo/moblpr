@@ -17,7 +17,7 @@ class VeiculoClient  {
 
         fun findByPlaca(placa: String,
                         onSuccess: (Vehicle) -> Unit,
-                        onFail: (ResponseBody) -> Unit
+                        onFail: (String) -> Unit
         ) {
             val retrofit = Retrofit.getInstance(BASE_URL)
 
@@ -60,11 +60,11 @@ class VeiculoClient  {
                             onSuccess(vehicle)
                         }
                     } else {
-                        response.errorBody()?.let { onFail(it) }
+                        response.errorBody()?.let { onFail(it.string()) }
                     }
                 }
                 override fun onFailure(call: Call<VehicleResponse?>, t: Throwable) {
-                    throw java.lang.IllegalArgumentException("Veículo não foi encontrado!", t)
+                    onFail("Falha a buscar dados do veículo.")
                 }
             })
         }

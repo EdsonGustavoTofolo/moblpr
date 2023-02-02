@@ -26,6 +26,7 @@ class FirstFragment : Fragment() {
     private val imageViewModel: ImageUriViewModel by activityViewModels()
 
     private lateinit var textRecognizer: TextRecognizer
+    private var hasImage: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,15 +44,19 @@ class FirstFragment : Fragment() {
         textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
         imageViewModel.selectedItem.observe(viewLifecycleOwner) { uri ->
+            hasImage = true
             binding.cropIv.setImageUriAsync(uri)
         }
+    }
 
-//        val mainActivity = activity as MainActivity
-//        mainActivity.hideShareQrCodeOption()
+    fun alreadyImageSelected(): Boolean {
+        return hasImage
+    }
 
-//        binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
+    override fun onResume() {
+        super.onResume()
+        val mainActivity = activity as MainActivity
+        mainActivity.checkStateButtons()
     }
 
     fun scan() {
@@ -59,10 +64,10 @@ class FirstFragment : Fragment() {
 
         val croppedImage: Bitmap? = binding.cropIv.getCroppedImage()
 
-        val textTaskResult = croppedImage?.let { img ->
+        croppedImage?.let { img ->
             textRecognizer.process(img, 0)
                 .addOnSuccessListener { value ->
-                    val plate = getPlate(value.text)
+                    val plate = PlateRecognizer.execute(value.text)
                     if (plate.isNullOrBlank()) {
                         mainActivity.progressBarHide()
                         mainActivity.snackBarShow("Não foi possível reconhecer a placa. Tente novamente.")
@@ -72,7 +77,11 @@ class FirstFragment : Fragment() {
                 }
                 .addOnFailureListener { e ->
                     mainActivity.progressBarHide()
-                    Toast.makeText(mainActivity, "Falha ao scannear a imagem: ${e.message}", Toast.LENGTH_SHORT).show()
+                    mainActivity.snackBar("Falha ao scannear a imagem: ${e.message}")
+                        .setAction("Scan") {
+                            mainActivity.progressBarShow()
+                            scan()
+                        }.show()
                 }
         }
     }
@@ -93,63 +102,11 @@ class FirstFragment : Fragment() {
             },
             { error ->
                 mainActivity.progressBarHide()
-                Toast.makeText(mainActivity, "Falha ao buscar dados do carro: ${error.string()}", Toast.LENGTH_SHORT).show()
+                mainActivity.snackBar(error).setAction("Scan") {
+                    mainActivity.progressBarShow()
+                    scan()
+                }.show()
             })
-    }
-
-    private fun getPlate(text: String) : String? {
-        val capturedTexts = text.split("\n")
-
-        var plateReturn: String? = null
-
-        for (capturedText: String in capturedTexts) {
-            var plate = capturedText.replace("[-\\s]".toRegex(), "")
-
-            if (plate.length == 7 && plate.contains("\\d".toRegex())) {
-                val plateChars = plate.toCharArray()
-
-                // se contains numero nas 3 primeiras posições da placa, tá errado, só pode letra
-                if (plate.substring(0, 3).contains("\\d".toRegex())) {
-                    for (i in 0..2) {
-                        if (plateChars[i] == '0') {
-                            plateChars[i] = 'O'
-                        }
-                        if (plateChars[i] == '1') {
-                            plateChars[i] = 'I'
-                        }
-                    }
-                }
-
-                // se na quarta posição da placa for uma letra, ta errado, só pode numero
-                if (plate.substring(3, 4).contains("[A-Z]".toRegex())) {
-                    if (plateChars[3] == 'O' || plateChars[3] == 'Q') {
-                        plateChars[3] = '0'
-                    } else if (plateChars[3] == 'I') {
-                        plateChars[3] = '1'
-                    }
-                }
-
-                // se contains letra nas 2 últimas posições da placa, tá errado, só pode numero
-                if (plate.substring(5).contains("\\D".toRegex())) {
-                    for (i in 5..6) {
-                        if (plateChars[i] == 'O' || plateChars[i] == 'Q') {
-                            plateChars[i] = '0'
-                        } else if (plateChars[i] == 'I') {
-                            plateChars[i] = '1'
-                        }
-                    }
-                }
-
-                plate = String(plateChars)
-
-                if (plate.matches("^([A-Z]{3})(\\d)(\\d|[A-Z])(\\d{2})\$".toRegex())) {
-                    plateReturn = plate
-                    break
-                }
-            }
-        }
-
-        return plateReturn
     }
 
     override fun onDestroyView() {
