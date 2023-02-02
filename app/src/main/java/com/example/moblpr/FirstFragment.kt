@@ -91,8 +91,6 @@ class FirstFragment : Fragment() {
 
         VeiculoClient.findByPlaca(plate,
             { vehicle ->
-                mainActivity.progressBarHide()
-
                 val bundle = Bundle()
                 bundle.putSerializable("vehicle", vehicle)
 

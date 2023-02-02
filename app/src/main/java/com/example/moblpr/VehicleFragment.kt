@@ -34,7 +34,6 @@ class VehicleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val mainActivity = activity as MainActivity
-        mainActivity.progressBarShow()
 
         vehicle = arguments?.getSerializable("vehicle") as Vehicle
 
