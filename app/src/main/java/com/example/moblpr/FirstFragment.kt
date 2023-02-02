@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.moblpr.clients.VeiculoClient
@@ -101,22 +100,56 @@ class FirstFragment : Fragment() {
     private fun getPlate(text: String) : String? {
         val capturedTexts = text.split("\n")
 
-        var plate: String? = null
+        var plateReturn: String? = null
 
         for (capturedText: String in capturedTexts) {
-            if (capturedText.matches("^([A-Z]{3})(\\d|O|-|\\s)?([A-Z]{1}\\d{2}|\\d{4})$".toRegex())) {
-                plate = capturedText.trim()
-                val fourthChar = plate.substring(3, 4)
-                if (fourthChar == "O") {
-                    plate = plate.substring(0, 3) + "0" + plate.substring(4)
-                } else if (fourthChar == "-" || fourthChar == " ") {
-                    plate = plate.replace("(-|\\s)".toRegex(), "")
+            var plate = capturedText.replace("[-\\s]".toRegex(), "")
+
+            if (plate.length == 7 && plate.contains("\\d".toRegex())) {
+                val plateChars = plate.toCharArray()
+
+                // se contains numero nas 3 primeiras posições da placa, tá errado, só pode letra
+                if (plate.substring(0, 3).contains("\\d".toRegex())) {
+                    for (i in 0..2) {
+                        if (plateChars[i] == '0') {
+                            plateChars[i] = 'O'
+                        }
+                        if (plateChars[i] == '1') {
+                            plateChars[i] = 'I'
+                        }
+                    }
                 }
-                break
+
+                // se na quarta posição da placa for uma letra, ta errado, só pode numero
+                if (plate.substring(3, 4).contains("[A-Z]".toRegex())) {
+                    if (plateChars[3] == 'O' || plateChars[3] == 'Q') {
+                        plateChars[3] = '0'
+                    } else if (plateChars[3] == 'I') {
+                        plateChars[3] = '1'
+                    }
+                }
+
+                // se contains letra nas 2 últimas posições da placa, tá errado, só pode numero
+                if (plate.substring(5).contains("\\D".toRegex())) {
+                    for (i in 5..6) {
+                        if (plateChars[i] == 'O' || plateChars[i] == 'Q') {
+                            plateChars[i] = '0'
+                        } else if (plateChars[i] == 'I') {
+                            plateChars[i] = '1'
+                        }
+                    }
+                }
+
+                plate = String(plateChars)
+
+                if (plate.matches("^([A-Z]{3})(\\d)(\\d|[A-Z])(\\d{2})\$".toRegex())) {
+                    plateReturn = plate
+                    break
+                }
             }
         }
 
-        return plate
+        return plateReturn
     }
 
     override fun onDestroyView() {
