@@ -1,13 +1,14 @@
 package com.example.moblpr
 
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.moblpr.clients.VeiculoClient
@@ -20,6 +21,15 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
 class FirstFragment : Fragment() {
 
+    private var seventhPos: TextInputEditText? = null
+    private var sixthPos: TextInputEditText? = null
+    private var fifthPos: TextInputEditText? = null
+    private var fourthPos: TextInputEditText? = null
+    private var thirdPos: TextInputEditText? = null
+    private var secondPos: TextInputEditText? = null
+    private var firstPos: TextInputEditText? = null
+    private var dialogLayoutView: View? = null
+    private var dialogConfirmation: AlertDialog? = null
     private var _binding: FragmentFirstBinding? = null
 
     // This property is only valid between onCreateView and
@@ -94,56 +104,67 @@ class FirstFragment : Fragment() {
         mainActivity.progressBarHide()
 
         context?.let {
-            val dialogLayoutView = LayoutInflater.from(it)
+            dialogLayoutView = LayoutInflater.from(it)
                 .inflate(R.layout.license_plate_confirmation_dialog, null, false)
 
-            dialogLayoutView.setOnKeyListener { v, keyCode, event ->
-                Log.w("my app", "KeyCode: ${keyCode} - Event: ${event}")
-                true
+            firstPos = dialogLayoutView?.findViewById(R.id.firstPos)
+            secondPos = dialogLayoutView?.findViewById(R.id.secondPos)
+            thirdPos = dialogLayoutView?.findViewById(R.id.thirdPos)
+            fourthPos = dialogLayoutView?.findViewById(R.id.fourthPos)
+            fifthPos = dialogLayoutView?.findViewById(R.id.fifthPos)
+            sixthPos = dialogLayoutView?.findViewById(R.id.sixthPos)
+            seventhPos = dialogLayoutView?.findViewById(R.id.seventhPos)
+
+            seventhPos!!.setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    dialogConfirmation?.let { dialog ->
+                        confirmPlate(dialog)
+                    }
+
+                    return@setOnEditorActionListener true
+                }
+                return@setOnEditorActionListener false
             }
 
-            val firstPos = dialogLayoutView.findViewById<TextInputEditText>(R.id.firstPos)
-            val secondPos = dialogLayoutView.findViewById<TextInputEditText>(R.id.secondPos)
-            val thirdPos = dialogLayoutView.findViewById<TextInputEditText>(R.id.thirdPos)
-            val fourthPos = dialogLayoutView.findViewById<TextInputEditText>(R.id.fourthPos)
-            val fifthPos = dialogLayoutView.findViewById<TextInputEditText>(R.id.fifthPos)
-            val sixthPos = dialogLayoutView.findViewById<TextInputEditText>(R.id.sixthPos)
-            val seventhPos = dialogLayoutView.findViewById<TextInputEditText>(R.id.seventhPos)
-
-            firstPos.setText(plate[0].toString())
-            secondPos.setText(plate[1].toString())
-            thirdPos.setText(plate[2].toString())
-            fourthPos.setText(plate[3].toString())
-            fifthPos.setText(plate[4].toString())
-            sixthPos.setText(plate[5].toString())
-            seventhPos.setText(plate[6].toString())
-
-            MaterialAlertDialogBuilder(it)
+            dialogConfirmation = MaterialAlertDialogBuilder(it)
                 .setView(dialogLayoutView)
                 .setTitle("Confirmação da Placa")
                 .setMessage("Placa Reconhecida")
                 .setPositiveButton("Confirmar") { dialog, _ ->
-
-                    val confirmedPlate =
-                        firstPos.text.toString() +
-                                secondPos.text.toString() +
-                                thirdPos.text.toString() +
-                                fourthPos.text.toString() +
-                                fifthPos.text.toString() +
-                                sixthPos.text.toString() +
-                                seventhPos.text.toString()
-
-                    dialog.dismiss()
-
-                    mainActivity.progressBarShow()
-
-                    findCarsInfoByPlate(confirmedPlate)
+                    confirmPlate(dialog)
                 }
                 .setNegativeButton("Cancelar") { dialog, _ ->
                     dialog.dismiss()
-                }
-                .show()
+                }.create()
+
+            firstPos!!.setText(plate[0].toString())
+            secondPos!!.setText(plate[1].toString())
+            thirdPos!!.setText(plate[2].toString())
+            fourthPos!!.setText(plate[3].toString())
+            fifthPos!!.setText(plate[4].toString())
+            sixthPos!!.setText(plate[5].toString())
+            seventhPos!!.setText(plate[6].toString())
+
+            dialogConfirmation?.show()
         }
+    }
+
+    private fun confirmPlate(dialog: DialogInterface) {
+        val confirmedPlate =
+            firstPos!!.text.toString() +
+                    secondPos!!.text.toString() +
+                    thirdPos!!.text.toString() +
+                    fourthPos!!.text.toString() +
+                    fifthPos!!.text.toString() +
+                    sixthPos!!.text.toString() +
+                    seventhPos!!.text.toString()
+
+        dialog.dismiss()
+
+        val mainActivity = activity as MainActivity
+        mainActivity.progressBarShow()
+
+        findCarsInfoByPlate(confirmedPlate)
     }
 
     private fun findCarsInfoByPlate(plate: String) {
