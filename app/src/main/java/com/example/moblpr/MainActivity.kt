@@ -114,8 +114,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun scanImage() {
         progressBarShow()
-        getActiveFragment().let {
-                fragment ->
+        getActiveFragment().let { fragment ->
             if (fragment is FirstFragment) {
                 fragment.scan()
             }
@@ -124,8 +123,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun generateQrCode() {
         progressBarShow()
-        getActiveFragment().let {
-            fragment ->
+        getActiveFragment().let { fragment ->
             if (fragment is VehicleFragment) {
                 fragment.generateQrCode()
             }

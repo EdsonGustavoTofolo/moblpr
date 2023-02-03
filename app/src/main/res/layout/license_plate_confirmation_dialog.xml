@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/design_default_color_on_primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/firstPos"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:ems="1"
+            android:inputType="textCapCharacters|textNoSuggestions"
+            android:maxWidth="1dp"
+            android:maxLength="1"
+            android:nextFocusDown="@+id/secondPos"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/design_default_color_on_primary"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/secondPos"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:inputType="textCapCharacters|textNoSuggestions"
+            android:maxLength="1"
+            android:selectAllOnFocus="true"
+            android:ems="1"
+            android:nextFocusDown="@+id/thirdPos"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/design_default_color_on_primary"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/thirdPos"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:inputType="textCapCharacters|textNoSuggestions"
+            android:maxLength="1"
+            android:selectAllOnFocus="true"
+            android:ems="1"
+            android:nextFocusDown="@+id/fourthPos"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/design_default_color_on_primary"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fourthPos"
+            android:digits="0123456789"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:inputType="number|textNoSuggestions"
+            android:maxLength="1"
+            android:selectAllOnFocus="true"
+            android:ems="1"
+            android:nextFocusDown="@+id/fifthPos"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/design_default_color_on_primary"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fifthPos"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:inputType="textCapCharacters|textNoSuggestions"
+            android:maxLength="1"
+            android:selectAllOnFocus="true"
+            android:ems="1"
+            android:nextFocusDown="@+id/sixthPos"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/design_default_color_on_primary"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sixthPos"
+            android:digits="0123456789"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:inputType="number|textNoSuggestions"
+            android:maxLength="1"
+            android:selectAllOnFocus="true"
+            android:ems="1"
+            android:nextFocusDown="@+id/seventhPos"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/design_default_color_on_primary"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/seventhPos"
+            android:digits="0123456789"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:inputType="number|textNoSuggestions"
+            android:maxLength="1"
+            android:selectAllOnFocus="true"
+            android:ems="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>
