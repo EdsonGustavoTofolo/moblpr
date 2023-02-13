@@ -9,15 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.example.moblpr.databinding.FragmentSecondBinding
+import com.example.moblpr.databinding.FragmentQrCodeBinding
 import com.example.moblpr.models.Vehicle
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 
-class SecondFragment : Fragment() {
+class QrCodeFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentQrCodeBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,7 +30,7 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentQrCodeBinding.inflate(inflater, container, false)
         return binding.root
 
     }

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import android.net.sip.SipErrorCode
 import android.os.Bundle
 import android.provider.MediaStore
 import com.google.android.material.snackbar.Snackbar
@@ -106,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                 }
             } else if (fragment is VehicleFragment) {
                 binding.menuItemGenerateQrCode.visibility = View.VISIBLE
-            } else if (fragment is SecondFragment) {
+            } else if (fragment is QrCodeFragment) {
                 binding.menuItemShareQrCode.visibility = View.VISIBLE
             }
         }

@@ -18,9 +18,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.moblpr.SecondFragment"
+        android:name="com.example.moblpr.QrCodeFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second"/>
+        tools:layout="@layout/fragment_qr_code"/>
     <fragment
         android:id="@+id/carInfoFragment"
         android:name="com.example.moblpr.VehicleFragment"
