@@ -1,4 +1,4 @@
-package com.example.moblpr
+package com.example.moblpr.viewmodels
 
 import android.net.Uri
 import androidx.lifecycle.LiveData

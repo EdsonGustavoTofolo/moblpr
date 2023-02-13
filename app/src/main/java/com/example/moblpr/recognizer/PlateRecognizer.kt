@@ -1,4 +1,4 @@
-package com.example.moblpr
+package com.example.moblpr.recognizer
 
 class PlateRecognizer {
 

@@ -20,6 +20,13 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.moblpr.databinding.ActivityMainBinding
+import com.example.moblpr.fragments.ImageFragment
+import com.example.moblpr.fragments.QrCodeFragment
+import com.example.moblpr.fragments.VehicleFragment
+import com.example.moblpr.pickers.ImageCameraPicker
+import com.example.moblpr.pickers.ImageGalleryPicker
+import com.example.moblpr.viewmodels.ImageQrCodeViewModel
+import com.example.moblpr.viewmodels.ImageUriViewModel
 import java.io.ByteArrayOutputStream
 
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.moblpr
+package com.example.moblpr.fragments
 
 import android.content.DialogInterface
 import android.graphics.Bitmap
@@ -11,6 +11,10 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.moblpr.viewmodels.ImageUriViewModel
+import com.example.moblpr.MainActivity
+import com.example.moblpr.recognizer.PlateRecognizer
+import com.example.moblpr.R
 import com.example.moblpr.clients.VeiculoClient
 import com.example.moblpr.databinding.FragmentImageBinding
 import com.example.moblpr.databinding.LicensePlateConfirmationDialogBinding

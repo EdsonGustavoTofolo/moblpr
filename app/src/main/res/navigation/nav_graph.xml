@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.moblpr.ImageFragment"
+        android:name="com.example.moblpr.fragments.ImageFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_image">
         <action
@@ -18,12 +18,12 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.moblpr.QrCodeFragment"
+        android:name="com.example.moblpr.fragments.QrCodeFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_qr_code"/>
     <fragment
         android:id="@+id/carInfoFragment"
-        android:name="com.example.moblpr.VehicleFragment"
+        android:name="com.example.moblpr.fragments.VehicleFragment"
         android:label="@string/fragment_car_info_label"
         tools:layout="@layout/fragment_vehicle">
         <action

@@ -1,4 +1,4 @@
-package com.example.moblpr
+package com.example.moblpr.fragments
 
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import com.example.moblpr.viewmodels.ImageQrCodeViewModel
+import com.example.moblpr.MainActivity
 import com.example.moblpr.databinding.FragmentQrCodeBinding
 import com.example.moblpr.models.Vehicle
 import com.google.zxing.BarcodeFormat
