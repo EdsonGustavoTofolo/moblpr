@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.moblpr.FirstFragment"
+        android:name="com.example.moblpr.ImageFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_image">
         <action
             android:id="@+id/action_FirstFragment_to_carInfoFragment"
             app:destination="@id/carInfoFragment"

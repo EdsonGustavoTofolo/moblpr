@@ -12,18 +12,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.moblpr.clients.VeiculoClient
-import com.example.moblpr.databinding.FragmentFirstBinding
+import com.example.moblpr.databinding.FragmentImageBinding
 import com.example.moblpr.databinding.LicensePlateConfirmationDialogBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
-class FirstFragment : Fragment() {
+class ImageFragment : Fragment() {
 
     private var dialogConfirmation: AlertDialog? = null
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentImageBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -40,7 +39,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentImageBinding.inflate(inflater, container, false)
         return binding.root
 
     }

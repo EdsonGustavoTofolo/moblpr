@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
     fun checkStateButtons() {
         initStateButtons()
         getActiveFragment().let { fragment ->
-            if (fragment is FirstFragment) {
+            if (fragment is ImageFragment) {
                 binding.menuItemCamera.visibility = View.VISIBLE
                 binding.menuItemGallery.visibility = View.VISIBLE
                 if (fragment.alreadyImageSelected()) {
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
     private fun scanImage() {
         progressBarShow()
         getActiveFragment().let { fragment ->
-            if (fragment is FirstFragment) {
+            if (fragment is ImageFragment) {
                 fragment.scan()
             }
         }
