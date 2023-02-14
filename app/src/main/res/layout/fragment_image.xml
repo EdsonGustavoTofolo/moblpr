@@ -12,6 +12,13 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:paddingTop="20dp"
-        android:paddingBottom="20dp"/>
+        android:paddingBottom="20dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/carIv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/car"/>
 
 </LinearLayout>

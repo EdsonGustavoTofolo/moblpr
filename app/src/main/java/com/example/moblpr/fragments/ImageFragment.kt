@@ -54,7 +54,11 @@ class ImageFragment : Fragment() {
         textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
         imageViewModel.selectedItem.observe(viewLifecycleOwner) { uri ->
-            hasImage = true
+            if (!hasImage) {
+                hasImage = true
+                binding.carIv.visibility = View.GONE
+                binding.cropIv.visibility = View.VISIBLE
+            }
             binding.cropIv.setImageUriAsync(uri)
         }
     }
