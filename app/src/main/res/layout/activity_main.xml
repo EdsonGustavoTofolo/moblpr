@@ -48,8 +48,8 @@
         app:menu_shadowRadius="4dp"
         app:menu_shadowXOffset="1dp"
         app:menu_shadowYOffset="3dp"
-        app:menu_colorNormal="#DA4336"
-        app:menu_colorPressed="#E75043"
+        app:menu_colorNormal="@color/purple_500"
+        app:menu_colorPressed="@color/purple_700"
         app:menu_colorRipple="#99FFFFFF"
         app:menu_animationDelayPerItem="50"
         app:menu_icon="@drawable/fab_add"
@@ -81,15 +81,19 @@
             android:id="@+id/menu_item_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_add_a_photo_24"
+            android:src="@drawable/baseline_add_a_photo_24_white"
+            app:fab_colorNormal="@color/purple_500"
+            app:fab_colorPressed="@color/purple_700"
             app:fab_size="mini"
-            app:fab_label="Camera" />
+            app:fab_label="Câmera" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/menu_item_gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_image_24"
+            android:src="@drawable/baseline_image_24_white"
+            app:fab_colorNormal="@color/purple_500"
+            app:fab_colorPressed="@color/purple_700"
             app:fab_size="mini"
             app:fab_label="Galeria" />
 
@@ -97,7 +101,9 @@
             android:id="@+id/menu_item_scan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_document_scanner_24"
+            android:src="@drawable/baseline_document_scanner_24_white"
+            app:fab_colorNormal="@color/purple_500"
+            app:fab_colorPressed="@color/purple_700"
             app:fab_size="mini"
             app:fab_label="Scan" />
 
@@ -105,7 +111,9 @@
             android:id="@+id/menu_item_share_qr_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_share_24"
+            android:src="@drawable/baseline_share_24_white"
+            app:fab_colorNormal="@color/purple_500"
+            app:fab_colorPressed="@color/purple_700"
             app:fab_size="mini"
             app:fab_label="QRCode" />
 
@@ -113,7 +121,9 @@
             android:id="@+id/menu_item_generate_qr_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_qr_code_24"
+            android:src="@drawable/baseline_qr_code_24_white"
+            app:fab_colorNormal="@color/purple_500"
+            app:fab_colorPressed="@color/purple_700"
             app:fab_size="mini"
             app:fab_label="Gerar" />
 
