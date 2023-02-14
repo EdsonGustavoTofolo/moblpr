@@ -19,7 +19,7 @@ class ImageCameraPicker(registry: ActivityResultRegistry) {
 
     private val getContent = registry.register("OPEN CAMERA", ActivityResultContracts.TakePicture()) { success ->
         if (success) {
-            imageUri.let {
+            imageUri.also {
                 mutableSelectedItem.value = it
             }
         }

@@ -19,7 +19,7 @@ class ImageGalleryPicker(registry: ActivityResultRegistry) {
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
             imageUri = data!!.data
-            imageUri.let {
+            imageUri.also {
                 mutableSelectedItem.value = it
             }
         }
