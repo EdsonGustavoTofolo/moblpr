@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
     fun checkStateButtons() {
         initStateButtons()
-        getActiveFragment().let { fragment ->
+        getActiveFragment().also { fragment ->
             if (fragment is ImageFragment) {
                 binding.menuItemCamera.visibility = View.VISIBLE
                 binding.menuItemGallery.visibility = View.VISIBLE
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun scanImage() {
         progressBarShow()
-        getActiveFragment().let { fragment ->
+        getActiveFragment().also { fragment ->
             if (fragment is ImageFragment) {
                 fragment.scan()
             }
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun generateQrCode() {
         progressBarShow()
-        getActiveFragment().let { fragment ->
+        getActiveFragment().also { fragment ->
             if (fragment is VehicleFragment) {
                 fragment.generateQrCode()
             }

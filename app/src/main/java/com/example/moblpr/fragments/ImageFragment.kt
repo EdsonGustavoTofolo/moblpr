@@ -78,7 +78,7 @@ class ImageFragment : Fragment() {
 
         val croppedImage: Bitmap? = binding.cropIv.getCroppedImage()
 
-        croppedImage?.let { img ->
+        croppedImage?.also { img ->
             textRecognizer.process(img, 0)
                 .addOnSuccessListener { value ->
                     val plate = PlateRecognizer.execute(value.text)
@@ -104,12 +104,12 @@ class ImageFragment : Fragment() {
         val mainActivity = activity as MainActivity
         mainActivity.progressBarHide()
 
-        context?.let {
+        context?.also {
             licensePlateConfirmationDialogBinding = LicensePlateConfirmationDialogBinding.inflate(LayoutInflater.from(it))
 
             licensePlateConfirmationDialogBinding.seventhPos.setOnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    dialogConfirmation?.let { dialog ->
+                    dialogConfirmation?.also { dialog ->
                         confirmPlate(dialog)
                     }
 
