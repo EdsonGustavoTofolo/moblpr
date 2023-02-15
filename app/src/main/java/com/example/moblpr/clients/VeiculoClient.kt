@@ -5,6 +5,7 @@ import com.example.moblpr.clients.apibrasil.PlacaRequest
 import com.example.moblpr.clients.apibrasil.VehicleResponse
 import com.example.moblpr.models.Vehicle
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -64,7 +65,9 @@ class VeiculoClient  {
                         if (errorBody.isNullOrEmpty()) {
                             onFail("Falha desconhecida ao buscar os dados.")
                         } else {
-                            onFail(errorBody)
+                            val jsonObject = JSONObject(errorBody)
+                            val message = jsonObject.getString("message")
+                            onFail(message)
                         }
                     }
                 }
