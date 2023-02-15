@@ -63,14 +63,14 @@ class ImageFragment : Fragment() {
         }
     }
 
-    fun alreadyImageSelected(): Boolean {
-        return hasImage
-    }
-
     override fun onResume() {
         super.onResume()
+
+        binding.carIv.visibility = if (hasImage) View.GONE else View.VISIBLE
+        binding.cropIv.visibility = if (hasImage) View.VISIBLE else View.GONE
+
         val mainActivity = activity as MainActivity
-        mainActivity.checkStateButtons()
+        mainActivity.visibilityButtonsImageFrag(if(hasImage) View.VISIBLE else View.GONE)
     }
 
     fun scan() {

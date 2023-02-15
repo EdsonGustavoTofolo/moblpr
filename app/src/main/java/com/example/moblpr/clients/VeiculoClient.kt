@@ -60,7 +60,12 @@ class VeiculoClient  {
                             onSuccess(vehicle)
                         }
                     } else {
-                        response.errorBody()?.let { onFail(it.string()) }
+                        val errorBody = response.errorBody()?.string()
+                        if (errorBody.isNullOrEmpty()) {
+                            onFail("Falha desconhecida ao buscar os dados.")
+                        } else {
+                            onFail(errorBody)
+                        }
                     }
                 }
                 override fun onFailure(call: Call<VehicleResponse?>, t: Throwable) {

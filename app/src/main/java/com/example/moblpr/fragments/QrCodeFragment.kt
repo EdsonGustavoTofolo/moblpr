@@ -59,7 +59,7 @@ class QrCodeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val mainActivity = activity as MainActivity
-        mainActivity.checkStateButtons()
+        mainActivity.visibilityButtonsQrCodeFrag()
     }
 
     private fun generateQrCode(data: String): Bitmap {

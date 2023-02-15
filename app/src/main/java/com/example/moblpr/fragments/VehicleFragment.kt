@@ -62,7 +62,7 @@ class VehicleFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val mainActivity = activity as MainActivity
-        mainActivity.checkStateButtons()
+        mainActivity.visibilityButtonsVehicleFrag()
     }
 
     fun generateQrCode() {

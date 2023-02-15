@@ -92,30 +92,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initStateButtons() {
-        binding.menuItemCamera.visibility = View.GONE
-        binding.menuItemGallery.visibility = View.GONE
+        binding.menuItemCamera.visibility = View.VISIBLE
+        binding.menuItemGallery.visibility = View.VISIBLE
         binding.menuItemScan.visibility = View.GONE
         binding.menuItemGenerateQrCode.visibility = View.GONE
         binding.menuItemShareQrCode.visibility = View.GONE
     }
 
-    fun checkStateButtons() {
-        initStateButtons()
-        getActiveFragment().also { fragment ->
-            if (fragment is ImageFragment) {
-                binding.menuItemCamera.visibility = View.VISIBLE
-                binding.menuItemGallery.visibility = View.VISIBLE
-                if (fragment.alreadyImageSelected()) {
-                    binding.menuItemScan.visibility = View.VISIBLE
-                } else {
-                    binding.menuItemScan.visibility = View.GONE
-                }
-            } else if (fragment is VehicleFragment) {
-                binding.menuItemGenerateQrCode.visibility = View.VISIBLE
-            } else if (fragment is QrCodeFragment) {
-                binding.menuItemShareQrCode.visibility = View.VISIBLE
-            }
-        }
+    fun visibilityButtonsImageFrag(visibilityScan: Int) {
+        binding.menuItemCamera.visibility = View.VISIBLE
+        binding.menuItemGallery.visibility = View.VISIBLE
+        binding.menuItemScan.visibility = visibilityScan
+        binding.menuItemGenerateQrCode.visibility = View.GONE
+        binding.menuItemShareQrCode.visibility = View.GONE
+    }
+
+    fun visibilityButtonsVehicleFrag() {
+        binding.menuItemCamera.visibility = View.GONE
+        binding.menuItemGallery.visibility = View.GONE
+        binding.menuItemScan.visibility = View.GONE
+        binding.menuItemGenerateQrCode.visibility = View.VISIBLE
+        binding.menuItemShareQrCode.visibility = View.GONE
+    }
+
+    fun visibilityButtonsQrCodeFrag() {
+        binding.menuItemCamera.visibility = View.GONE
+        binding.menuItemGallery.visibility = View.GONE
+        binding.menuItemScan.visibility = View.GONE
+        binding.menuItemGenerateQrCode.visibility = View.GONE
+        binding.menuItemShareQrCode.visibility = View.VISIBLE
     }
 
     private fun scanImage() {
