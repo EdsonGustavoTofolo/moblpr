@@ -25,7 +25,7 @@ class VehicleFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentVehicleBinding.inflate(inflater, container, false)
         return binding.root

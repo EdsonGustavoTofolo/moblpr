@@ -16,8 +16,8 @@ import com.example.moblpr.MainActivity
 import com.example.moblpr.recognizer.PlateRecognizer
 import com.example.moblpr.R
 import com.example.moblpr.clients.VeiculoClient
+import com.example.moblpr.databinding.DialogConfirmationLicensePlateBinding
 import com.example.moblpr.databinding.FragmentImageBinding
-import com.example.moblpr.databinding.LicensePlateConfirmationDialogBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
@@ -34,7 +34,7 @@ class ImageFragment : Fragment() {
 
     private val imageViewModel: ImageUriViewModel by activityViewModels()
 
-    private lateinit var licensePlateConfirmationDialogBinding: LicensePlateConfirmationDialogBinding
+    private lateinit var licensePlateConfirmationDialogBinding: DialogConfirmationLicensePlateBinding
     private lateinit var textRecognizer: TextRecognizer
     private var hasImage: Boolean = false
 
@@ -105,9 +105,9 @@ class ImageFragment : Fragment() {
         mainActivity.progressBarHide()
 
         context?.also {
-            licensePlateConfirmationDialogBinding = LicensePlateConfirmationDialogBinding.inflate(LayoutInflater.from(it))
+            licensePlateConfirmationDialogBinding = DialogConfirmationLicensePlateBinding.inflate(LayoutInflater.from(it))
 
-            licensePlateConfirmationDialogBinding.seventhPos.setOnEditorActionListener { v, actionId, event ->
+            licensePlateConfirmationDialogBinding.seventhPos.setOnEditorActionListener { v, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     dialogConfirmation?.also { dialog ->
                         confirmPlate(dialog)

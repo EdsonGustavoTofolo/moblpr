@@ -24,7 +24,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.moblpr.databinding.ActivityMainBinding
 import com.example.moblpr.databinding.DialogLoadingBinding
 import com.example.moblpr.fragments.ImageFragment
-import com.example.moblpr.fragments.QrCodeFragment
 import com.example.moblpr.fragments.VehicleFragment
 import com.example.moblpr.pickers.ImageCameraPicker
 import com.example.moblpr.pickers.ImageGalleryPicker
@@ -155,7 +154,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun shareQrCodeImage() {
-        val os = ByteArrayOutputStream();
+        val os = ByteArrayOutputStream()
 
         qrCodeImage.compress(Bitmap.CompressFormat.PNG, 100, os)
 
