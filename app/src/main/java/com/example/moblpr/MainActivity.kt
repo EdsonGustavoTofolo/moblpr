@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -17,9 +18,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.moblpr.databinding.ActivityMainBinding
+import com.example.moblpr.databinding.DialogLoadingBinding
 import com.example.moblpr.fragments.ImageFragment
 import com.example.moblpr.fragments.QrCodeFragment
 import com.example.moblpr.fragments.VehicleFragment
@@ -27,12 +30,14 @@ import com.example.moblpr.pickers.ImageCameraPicker
 import com.example.moblpr.pickers.ImageGalleryPicker
 import com.example.moblpr.viewmodels.ImageQrCodeViewModel
 import com.example.moblpr.viewmodels.ImageUriViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.ByteArrayOutputStream
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var dialogLoadingBinding: DialogLoadingBinding
 
     private lateinit var imageCameraPicker: ImageCameraPicker
     private lateinit var imageGalleryPicker: ImageGalleryPicker
@@ -41,6 +46,8 @@ class MainActivity : AppCompatActivity() {
     private val imageQrCodeViewModel: ImageQrCodeViewModel by viewModels()
 
     private lateinit var qrCodeImage: Bitmap
+
+    private lateinit var dialogLoading: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,7 +131,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun scanImage() {
-        progressBarShow()
+        progressBarShow("Fazendo reconhecimento da placa...")
+
         getActiveFragment().also { fragment ->
             if (fragment is ImageFragment) {
                 fragment.scan()
@@ -133,7 +141,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun generateQrCode() {
-        progressBarShow()
         getActiveFragment().also { fragment ->
             if (fragment is VehicleFragment) {
                 fragment.generateQrCode()
@@ -142,7 +149,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getActiveFragment(): Fragment? {
-        val frag = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+        val frag =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
         return frag.childFragmentManager.fragments[0]
     }
 
@@ -151,7 +159,12 @@ class MainActivity : AppCompatActivity() {
 
         qrCodeImage.compress(Bitmap.CompressFormat.PNG, 100, os)
 
-        val path = MediaStore.Images.Media.insertImage(contentResolver, qrCodeImage, "QRCode", "QRCode with car info")
+        val path = MediaStore.Images.Media.insertImage(
+            contentResolver,
+            qrCodeImage,
+            "QRCode",
+            "QRCode with car info"
+        )
 
         val intentShare = Intent(Intent.ACTION_SEND)
         intentShare.type = "image/*"
@@ -169,11 +182,24 @@ class MainActivity : AppCompatActivity() {
         binding.menuItemShareQrCode.visibility = View.VISIBLE
     }
 
-    fun progressBarShow() {
+    fun progressBarShow(text: String) {
+        dialogLoadingBinding = DialogLoadingBinding.inflate(LayoutInflater.from(this))
+
+        dialogLoadingBinding.tv.text = text
+
+        dialogLoading = MaterialAlertDialogBuilder(this)
+            .setView(dialogLoadingBinding.root)
+            .setTitle("Aguarde")
+            .create()
+
+        dialogLoading.show()
+
         binding.progressbar.visibility = ProgressBar.VISIBLE
     }
 
     fun progressBarHide() {
+        dialogLoading.hide()
+
         binding.progressbar.visibility = ProgressBar.GONE
     }
 
@@ -204,7 +230,7 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode) {
+        when (requestCode) {
             Permissions.CAMERA_REQUEST_CODE -> {
                 if (grantResults.isNotEmpty()) {
                     val cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
@@ -213,7 +239,11 @@ class MainActivity : AppCompatActivity() {
                     if (cameraAccepted && storageAccepted) {
                         pickImageCameraExecute()
                     } else {
-                        Snackbar.make(binding.coordinatorLayout, "Permissões de Camera & Armazenamento são obrigatórios", Snackbar.LENGTH_LONG)
+                        Snackbar.make(
+                            binding.coordinatorLayout,
+                            "Permissões de Camera & Armazenamento são obrigatórios",
+                            Snackbar.LENGTH_LONG
+                        )
                             .setAction("Permitir") {
                                 Permissions.requestCameraPermissions(this)
                             }.show()
@@ -226,7 +256,11 @@ class MainActivity : AppCompatActivity() {
                     if (storageAccepted) {
                         pickImageGalleryExecute()
                     } else {
-                        Snackbar.make(binding.coordinatorLayout, "Permissão de Armazenamento é obrigatório", Snackbar.LENGTH_LONG)
+                        Snackbar.make(
+                            binding.coordinatorLayout,
+                            "Permissão de Armazenamento é obrigatório",
+                            Snackbar.LENGTH_LONG
+                        )
                             .setAction("Permitir") {
                                 Permissions.requestStoragePermission(this)
                             }.show()
@@ -240,7 +274,7 @@ class MainActivity : AppCompatActivity() {
         Snackbar.make(binding.coordinatorLayout, text, Snackbar.LENGTH_LONG).show()
     }
 
-    fun snackBar(text: String) : Snackbar {
+    fun snackBar(text: String): Snackbar {
         return Snackbar.make(binding.coordinatorLayout, text, Snackbar.LENGTH_LONG)
     }
 

@@ -41,7 +41,7 @@ class QrCodeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val mainActivity = activity as MainActivity
-        mainActivity.progressBarShow()
+        mainActivity.progressBarShow("Gerando QRCode...")
 
         val vehicle = arguments?.getSerializable("vehicle") as Vehicle
 

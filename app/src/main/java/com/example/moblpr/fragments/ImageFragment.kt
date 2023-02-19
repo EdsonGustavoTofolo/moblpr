@@ -93,7 +93,7 @@ class ImageFragment : Fragment() {
                     mainActivity.progressBarHide()
                     mainActivity.snackBar("Falha ao scannear a imagem: ${e.message}")
                         .setAction("Scan") {
-                            mainActivity.progressBarShow()
+                            mainActivity.progressBarShow("Fazendo reconhecimento da placa...")
                             scan()
                         }.show()
                 }
@@ -154,7 +154,7 @@ class ImageFragment : Fragment() {
         dialog.dismiss()
 
         val mainActivity = activity as MainActivity
-        mainActivity.progressBarShow()
+        mainActivity.progressBarShow("Buscando dados do veículo...")
 
         findCarsInfoByPlate(confirmedPlate)
     }
@@ -174,7 +174,7 @@ class ImageFragment : Fragment() {
             { error ->
                 mainActivity.progressBarHide()
                 mainActivity.snackBar(error).setAction("Scan") {
-                    mainActivity.progressBarShow()
+                    mainActivity.progressBarShow("Fazendo reconhecimento da placa...")
                     scan()
                 }.show()
             })
