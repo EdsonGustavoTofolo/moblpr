@@ -60,6 +60,13 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        dialogLoadingBinding = DialogLoadingBinding.inflate(LayoutInflater.from(this))
+
+        dialogLoading = MaterialAlertDialogBuilder(this)
+            .setView(dialogLoadingBinding.root)
+            .setTitle("Aguarde")
+            .create()
+
         imageQrCodeViewModel.selectedItem.observe(this) { image ->
             qrCodeImage = image
         }
@@ -182,14 +189,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun progressBarShow(text: String) {
-        dialogLoadingBinding = DialogLoadingBinding.inflate(LayoutInflater.from(this))
-
         dialogLoadingBinding.tv.text = text
-
-        dialogLoading = MaterialAlertDialogBuilder(this)
-            .setView(dialogLoadingBinding.root)
-            .setTitle("Aguarde")
-            .create()
 
         dialogLoading.show()
 
@@ -197,7 +197,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun progressBarHide() {
-        dialogLoading.hide()
+        dialogLoading.dismiss()
 
         binding.progressbar.visibility = ProgressBar.GONE
     }

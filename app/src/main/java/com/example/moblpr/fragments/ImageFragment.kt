@@ -25,7 +25,6 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
 class ImageFragment : Fragment() {
 
-    private var dialogConfirmation: AlertDialog? = null
     private var _binding: FragmentImageBinding? = null
 
     // This property is only valid between onCreateView and
@@ -34,6 +33,7 @@ class ImageFragment : Fragment() {
 
     private val imageViewModel: ImageUriViewModel by activityViewModels()
 
+    private lateinit var dialogConfirmation: AlertDialog
     private lateinit var licensePlateConfirmationDialogBinding: DialogConfirmationLicensePlateBinding
     private lateinit var textRecognizer: TextRecognizer
     private var hasImage: Boolean = false
@@ -50,6 +50,33 @@ class ImageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        context?.also {
+            licensePlateConfirmationDialogBinding =
+                DialogConfirmationLicensePlateBinding.inflate(LayoutInflater.from(it))
+
+            licensePlateConfirmationDialogBinding.seventhPos.setOnEditorActionListener { v, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    dialogConfirmation.also { dialog ->
+                        confirmPlate(dialog)
+                    }
+
+                    return@setOnEditorActionListener true
+                }
+                return@setOnEditorActionListener false
+            }
+
+            dialogConfirmation = MaterialAlertDialogBuilder(it)
+                .setView(licensePlateConfirmationDialogBinding.root)
+                .setTitle("Confirmação da Placa")
+                .setMessage("Placa Reconhecida")
+                .setPositiveButton("Confirmar") { dialog, _ ->
+                    confirmPlate(dialog)
+                }
+                .setNegativeButton("Cancelar") { dialog, _ ->
+                    dialog.dismiss()
+                }.create()
+        }
 
         textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
@@ -105,30 +132,6 @@ class ImageFragment : Fragment() {
         mainActivity.progressBarHide()
 
         context?.also {
-            licensePlateConfirmationDialogBinding = DialogConfirmationLicensePlateBinding.inflate(LayoutInflater.from(it))
-
-            licensePlateConfirmationDialogBinding.seventhPos.setOnEditorActionListener { v, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    dialogConfirmation?.also { dialog ->
-                        confirmPlate(dialog)
-                    }
-
-                    return@setOnEditorActionListener true
-                }
-                return@setOnEditorActionListener false
-            }
-
-            dialogConfirmation = MaterialAlertDialogBuilder(it)
-                .setView(licensePlateConfirmationDialogBinding.root)
-                .setTitle("Confirmação da Placa")
-                .setMessage("Placa Reconhecida")
-                .setPositiveButton("Confirmar") { dialog, _ ->
-                    confirmPlate(dialog)
-                }
-                .setNegativeButton("Cancelar") { dialog, _ ->
-                    dialog.dismiss()
-                }.create()
-
             licensePlateConfirmationDialogBinding.firstPos.setText(plate[0].toString())
             licensePlateConfirmationDialogBinding.secondPos.setText(plate[1].toString())
             licensePlateConfirmationDialogBinding.thirdPos.setText(plate[2].toString())
@@ -137,7 +140,7 @@ class ImageFragment : Fragment() {
             licensePlateConfirmationDialogBinding.sixthPos.setText(plate[5].toString())
             licensePlateConfirmationDialogBinding.seventhPos.setText(plate[6].toString())
 
-            dialogConfirmation?.show()
+            dialogConfirmation.show()
         }
     }
 
