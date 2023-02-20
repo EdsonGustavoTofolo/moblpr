@@ -2,17 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_gravity="center"
     android:gravity="center">
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        app:boxBackgroundColor="@android:color/transparent"
+        android:background="@android:color/transparent"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:textColorHint="@color/design_default_color_on_primary">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@android:color/transparent"
             android:id="@+id/firstPos"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -28,12 +32,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundColor="@android:color/transparent"
+        android:background="@android:color/transparent"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:textColorHint="@color/design_default_color_on_primary"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@android:color/transparent"
             android:id="@+id/secondPos"
             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:layout_width="wrap_content"
@@ -48,12 +55,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundColor="@android:color/transparent"
+        android:background="@android:color/transparent"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:textColorHint="@color/design_default_color_on_primary"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@android:color/transparent"
             android:id="@+id/thirdPos"
             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:layout_width="wrap_content"
@@ -68,12 +78,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundColor="@android:color/transparent"
+        android:background="@android:color/transparent"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:textColorHint="@color/design_default_color_on_primary"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@android:color/transparent"
             android:id="@+id/fourthPos"
             android:digits="0123456789"
             android:layout_width="wrap_content"
@@ -88,12 +101,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundColor="@android:color/transparent"
+        android:background="@android:color/transparent"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:textColorHint="@color/design_default_color_on_primary"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@android:color/transparent"
             android:id="@+id/fifthPos"
             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
             android:layout_width="wrap_content"
@@ -108,12 +124,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundColor="@android:color/transparent"
+        android:background="@android:color/transparent"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:textColorHint="@color/design_default_color_on_primary"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@android:color/transparent"
             android:id="@+id/sixthPos"
             android:digits="0123456789"
             android:layout_width="wrap_content"
@@ -128,12 +147,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundColor="@android:color/transparent"
+        android:background="@android:color/transparent"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:textColorHint="@color/design_default_color_on_primary"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@android:color/transparent"
             android:id="@+id/seventhPos"
             android:digits="0123456789"
             android:layout_width="wrap_content"
